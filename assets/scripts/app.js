@@ -29,3 +29,62 @@
 /* FASE 4: Controllare la vita bonus
   - 
   */
+const ATTACK_VALUE = 10
+const STRONG_ATTACK_VALUE = 17
+const MONSTER_ATTACK_VALUE = 14
+const HEAL_VALUE = 20
+
+let chosenMaxLife = 100
+let currentSquirrelHealth = chosenMaxLife
+let currentPlayerHealth = chosenMaxLife
+
+adjustHealthBars(chosenMaxLife)
+
+function endRound() {
+  const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE)
+  currentPlayerHealth -= playerDamage
+  if (currentSquirrelHealth <= 0 && currentPlayerHealth > 0) {
+    alert('You won!')
+  } else if (currentPlayerHealth <= 0 && currentSquirrelHealth > 0) {
+    alert('You lost!')
+  } else if (currentPlayerHealth <= 0 && currentSquirrelHealth <= 0) {
+    alert('You have a draw!')
+  }
+}
+
+function attackSquirrel(mode) {
+  let maxDamage
+  if (mode === 'ATTACK') {
+    maxDamage = ATTACK_VALUE
+  } else if (mode === 'STRONG_ATTACK') {
+    maxDamage = STRONG_ATTACK_VALUE
+  }
+  const damage = dealSquirrelDamage(maxDamage)
+  currentSquirrelHealth -= damage
+  endRound()
+}
+
+function attackHandler() {
+  attackSquirrel('ATTACK')
+}
+
+function strongAttackHandler() {
+  attackSquirrel('STRONG_ATTACK')
+}
+
+function healPlayerHandler() {
+  let healValue
+  if (currentPlayerHealth >= chosenMaxLife - HEAL_VALUE) {
+    alert("You can't heal to more than your max initial health.")
+    healValue = chosenMaxLife - currentPlayerHealth
+  } else {
+    healValue = HEAL_VALUE
+  }
+  increasePlayerHealth(healValue)
+  currentPlayerHealth += healValue
+  endRound()
+}
+
+attackBtn.addEventListener('click', attackHandler)
+strongAttackBtn.addEventListener('click', strongAttackHandler)
+healBtn.addEventListener('click', healPlayerHandler)

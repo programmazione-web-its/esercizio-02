@@ -1,9 +1,16 @@
+:root {
+  --primary: #52270e;
+  --secondary: #33490d;
+  --accent: #a07156;
+}
 html {
   font-family: sans-serif;
 }
 
 body {
-  background: #2c2c2c;
+  background: #4f6c1e;
+  margin: 0;
+  padding: 0;
 }
 
 h2 {
@@ -17,8 +24,8 @@ progress {
   appearance: none;
   width: 80%;
   height: 2rem;
-  color: #ff0062;
-  border: 1px solid #a927f5;
+  color: var(--primary);
+  border: 1px solid var(--primary);
 }
 
 progress[value]::-webkit-progress-bar,
@@ -28,24 +35,40 @@ progress[value] {
 }
 
 progress[value]::-webkit-progress-value {
-  background-color: #a927f5;
+  background-color: var(--primary);
   transition: all 0.2s ease-out;
 }
 
 progress[value]::-moz-progress-bar {
-  background-color: #a927f5;
+  background-color: var(--primary);
   transition: all 0.2s ease-out;
+}
+
+#player-health {
+  color: var(--secondary);
+  border: 1px solid var(--secondary);
+}
+
+#player-health[value]::-webkit-progress-value {
+  background-color: var(--secondary);
+  transition: all 0.2s ease-out;
+}
+
+#player-health[value]::-moz-progress-bar {
+  background-color: var(--secondary);
 }
 
 button {
   font: inherit;
-  background: #ff0062;
-  border: 1px solid #ff0062;
+  font-size: 0.75rem;
+  background: var(--accent);
+  border: 1px solid var(--accent);
   color: white;
   padding: 1rem 2rem;
-  border-radius: 6px;
+  border-radius: 50px;
   cursor: pointer;
   margin: 0.5rem;
+  flex: 1 0 45%;
 }
 
 button:focus {
@@ -54,33 +77,69 @@ button:focus {
 
 button:hover,
 button:active {
-  background: #a927f5;
-  border-color: #a927f5;
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
 #health-levels,
 #controls {
-  margin: 2rem auto;
+  margin: 0 auto;
   width: 30rem;
   text-align: center;
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  background: white;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 #controls {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 #bonus-life {
   font-weight: bold;
   color: white;
-  background: #ff0062;
-  border: 1px solid #ff0062;
+  background: var(--accent);
+  border: 1px solid var(--accent);
   padding: 0.15rem 0.5rem;
-  border-radius: 10px;
+  border-radius: 100%;
   text-align: center;
   margin: 0 0.5rem;
+}
+
+.game-wrapper {
+  height: 100vh;
+  position: relative;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.game-wrapper img {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  mask-image: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 1) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 1) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.game-wrapper > section {
+  position: relative;
+  z-index: 1;
 }
